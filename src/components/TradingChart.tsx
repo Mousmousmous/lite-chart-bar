@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { createChart } from 'lightweight-charts'
+import { createChart, CandlestickSeries } from 'lightweight-charts'
 import { IntervalButton } from './ui/interval-button'
 
 // Types pour les données de l'API
@@ -77,8 +77,8 @@ export const TradingChart = () => {
       },
     })
 
-    // Création de la série candlestick
-    const candlestickSeries = (chart as any).addCandlestickSeries({
+    // Création de la série candlestick avec la syntaxe v5.0
+    const candlestickSeries = chart.addSeries(CandlestickSeries, {
       upColor: 'hsl(134, 61%, 41%)', // Bull green
       downColor: 'hsl(0, 84%, 60%)', // Bear red
       borderUpColor: 'hsl(134, 61%, 41%)',
