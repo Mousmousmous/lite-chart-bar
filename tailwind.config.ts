@@ -52,15 +52,26 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
+				// Trading specific colors
+				bull: {
+					DEFAULT: 'hsl(var(--bull))',
+					foreground: 'hsl(var(--bull-foreground))'
+				},
+				bear: {
+					DEFAULT: 'hsl(var(--bear))',
+					foreground: 'hsl(var(--bear-foreground))'
+				},
+				chart: {
+					background: 'hsl(var(--chart-background))',
+					grid: 'hsl(var(--chart-grid))',
+					text: 'hsl(var(--chart-text))',
+					crosshair: 'hsl(var(--chart-crosshair))'
+				},
+				interval: {
+					button: 'hsl(var(--interval-button))',
+					'button-hover': 'hsl(var(--interval-button-hover))',
+					'button-active': 'hsl(var(--interval-button-active))',
+					'button-active-foreground': 'hsl(var(--interval-button-active-foreground))'
 				}
 			},
 			borderRadius: {
@@ -88,7 +99,20 @@ export default {
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-subtle': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+			},
+			transitionProperty: {
+				'smooth': 'all',
+				'fast': 'all'
+			},
+			transitionDuration: {
+				'smooth': '0.2s',
+				'fast': '0.15s'
+			},
+			transitionTimingFunction: {
+				'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
+				'fast': 'ease-out'
 			}
 		}
 	},
