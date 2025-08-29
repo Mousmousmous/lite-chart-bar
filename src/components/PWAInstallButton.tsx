@@ -12,8 +12,11 @@ const PWAInstallButton = () => {
   const [showIOSPrompt, setShowIOSPrompt] = useState(false)
 
   useEffect(() => {
+    console.log('PWA Install Button: Component mounted')
+    
     // Écouter l'événement beforeinstallprompt (Android/Desktop)
     const handleBeforeInstallPrompt = (e: Event) => {
+      console.log('PWA Install Button: beforeinstallprompt event triggered', e)
       e.preventDefault()
       setDeferredPrompt(e as BeforeInstallPromptEvent)
       setShowInstallButton(true)
@@ -24,14 +27,38 @@ const PWAInstallButton = () => {
     const isInStandaloneMode = window.matchMedia('(display-mode: standalone)').matches
     const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)
     
+    console.log('PWA Install Button: Device detection', {
+      isIOS,
+      isInStandaloneMode,
+      isSafari,
+      userAgent: navigator.userAgent
+    })
+    
     if (isIOS && isSafari && !isInStandaloneMode) {
+      console.log('PWA Install Button: Showing iOS prompt')
       setShowIOSPrompt(true)
+    }
+
+    // Vérifier si l'app est déjà installée
+    if (isInStandaloneMode) {
+      console.log('PWA Install Button: App is already installed (standalone mode)')
     }
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
 
+    // Vérifier après un délai si l'événement n'a pas été déclenché
+    const timeout = setTimeout(() => {
+      console.log('PWA Install Button: No beforeinstallprompt event after 3 seconds')
+      console.log('PWA Install Button: Current state', {
+        deferredPrompt: !!deferredPrompt,
+        showInstallButton,
+        isInStandaloneMode
+      })
+    }, 3000)
+
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+      clearTimeout(timeout)
     }
   }, [])
 
@@ -83,8 +110,25 @@ const PWAInstallButton = () => {
     )
   }
 
-  if (!showInstallButton) {
-    return null
+  if (!showInstallButton && !showIOSPrompt) {
+    // Afficher un bouton de debug temporaire pour forcer l'affichage
+    return (
+      <div className="fixed top-4 right-4 z-50">
+        <Button
+          onClick={() => {
+            console.log('Debug: Force showing install options')
+            console.log('Current state:', { showInstallButton, showIOSPrompt, deferredPrompt: !!deferredPrompt })
+            // Forcer l'affichage du bouton pour debug
+            setShowInstallButton(true)
+          }}
+          variant="outline"
+          size="sm"
+          className="shadow-lg backdrop-blur-sm text-xs"
+        >
+          🔧 Debug PWA
+        </Button>
+      </div>
+    )
   }
 
   return (
