@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createChart, CandlestickSeries } from 'lightweight-charts'
 import { IntervalButton } from './ui/interval-button'
+import PWAInstallButton from './PWAInstallButton'
 
 // Types pour les données de l'API
 type CandleRow = {
@@ -165,7 +166,10 @@ export const TradingChart = () => {
   }
 
   return (
-    <div className="h-screen w-full flex flex-col bg-background">
+    <div className="h-screen w-full flex flex-col bg-background relative">
+      {/* PWA Install Button */}
+      <PWAInstallButton />
+
       {/* Barre d'outils avec les boutons d'intervalle */}
       <div className="flex items-center justify-center gap-2 p-4 bg-card border-b border-border">
         {INTERVALS.map((interval) => (
